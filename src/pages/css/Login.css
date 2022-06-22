@@ -1,0 +1,20 @@
+.login{
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    
+}
+.login_box{
+    width: 500px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+.logoImg{
+    display: block;
+    margin:  20px auto;
+    width: 350px;
+    height: 100px;
+    border-radius: 10px;
+}
