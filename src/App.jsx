@@ -1,10 +1,30 @@
-import React from 'react'
-import { Button } from 'antd';
+import React ,{useState}from 'react'
+import { Outlet } from 'react-router-dom';
+import { Layout } from 'antd';
+import Header from './components/Header';
+import Aside from './components/Aside';
+import './assets/base.css'
+import Bread from './components/Bread';
 
-export default function App() {
+function App() {
   return (
-    <div>
-      <Button type="primary">Primary Button</Button>
-    </div>
+    <Layout id='app'>
+      <Header />
+      <Layout>
+        <div className='container'>
+          <Aside />
+          <div className='container_box'>
+            <Bread />
+            <div className="container_content">
+              <Outlet />
+            </div>
+          </div>
+        </div>
+      </Layout>
+      <footer>Respect | Copyright &copy; 2022 Author</footer>
+    </Layout>
+
   )
 }
+
+export default App

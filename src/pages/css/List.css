@@ -1,0 +1,11 @@
+.list_box{
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+.table_title{
+    color: #333;
+}
+.table_title :hover{
+    color: #1890ff;
+}

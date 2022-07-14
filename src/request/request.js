@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // 配置项
 const axiosOption = {
-    baseURL: 'http://47.93.114.103:6688/manage',
+    baseURL: '/api',
     timeout: 5000
 }
 
@@ -10,12 +10,17 @@ const axiosOption = {
 const instance = axios.create(axiosOption);
 
 // 添加请求拦截器
+// instance.interceptors.request.use(function (config) {
+//   return config;
+// }, function (error) {
+//   // 对请求错误做些什么
+//   return Promise.reject(error);
+// });
 instance.interceptors.request.use(function (config) {
-  return config;
-}, function (error) {
-  // 对请求错误做些什么
-  return Promise.reject(error);
-});
+  //这里
+  config.headers ={'cms-token':window.localStorage.getItem('cms-token')};
+   return config;
+ });
 
 // 添加响应拦截器
 instance.interceptors.response.use(function (response) {

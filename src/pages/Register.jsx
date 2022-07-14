@@ -1,19 +1,30 @@
 import React from 'react'
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './css/Login.css'
 import logoImage from '../assets/images/login.png'
-import {RegisterApi} from '../request/api'
+import { RegisterApi } from '../request/api'    //接口引用
+
+{/**  注册页面 */}
 
 export default function Register() {
+  const navigate = useNavigate();   //跳转
   const onFinish = (values) => {
-    console.log('Success:', values);
-    RegisterApi({
+    RegisterApi({     //接口调用传值
       username: values.username,
       password: values.password
-    }).then(res=>{
-      console.log(res);
+    }).then(res => {    //接口状态返回
+      if (res.errCode === 0) {    //注册成功提示
+        message.success(res.message);
+        setTimeout(() => {      //定时器
+          navigate('/login')      //注册成功跳转登录页面
+        }, 1500);
+      }
+      else {      //错误信息反馈提示
+        message.error(res.message);
+      }
+
     })
   };
   return (

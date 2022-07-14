@@ -1,18 +1,40 @@
 import React from 'react'
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import {Link} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './css/Login.css'
 import logoImage from '../assets/images/login.png'
+import { LoginApi } from '../request/api';
+
+{/**  登录页面 */}
 
 export default function Login() {
+  const navigate = useNavigate();     //跳转
   const onFinish = (values) => {
-    console.log('Success:', values);
+    LoginApi({     //接口调用传值
+      username: values.username,
+      password: values.password
+    }).then(res => {    //接口状态返回
+      if (res.errCode === 0) {    //注册成功提示
+        message.success(res.message);
+        //存储数据
+        localStorage.setItem('avatar',res.data.avatar);
+        localStorage.setItem('cms-token',res.data['cms-token']);
+        localStorage.setItem('editable',res.data.editable);
+        localStorage.setItem('player',res.data.player);
+        localStorage.setItem('username',res.data.username);
+        
+        setTimeout(() => {      //定时器
+          navigate('/list')      //注册成功跳转登录页面
+        }, 1500);
+      }
+      else {      //错误信息反馈提示
+        message.error(res.message);
+      }
+
+    })
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
 
   return (
     <div className="login">
@@ -24,7 +46,6 @@ export default function Login() {
             remember: true,
           }}
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
           <Form.Item
@@ -63,7 +84,7 @@ export default function Login() {
 
           <Form.Item>
             <Link to="/register"  >还没账号？立即注册</Link>
-          </Form.Item>  
+          </Form.Item>
           <Form.Item>
             <Button size='large' type="primary" htmlType="submit" block>
               登录
