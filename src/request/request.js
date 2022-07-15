@@ -1,10 +1,10 @@
-import axios from 'axios'
+import axios from "axios";
 
 // 配置项
 const axiosOption = {
-    baseURL: '/api',
-    timeout: 5000
-}
+  baseURL: "/api",
+  timeout: 5000,
+};
 
 // 创建一个单例
 const instance = axios.create(axiosOption);
@@ -18,18 +18,20 @@ const instance = axios.create(axiosOption);
 // });
 instance.interceptors.request.use(function (config) {
   //这里
-  config.headers ={'cms-token':window.localStorage.getItem('cms-token')};
-   return config;
- });
-
-// 添加响应拦截器
-instance.interceptors.response.use(function (response) {
-  // 对响应数据做点什么
-  return response.data;
-}, function (error) {
-  // 对响应错误做点什么
-  return Promise.reject(error);
+  config.headers = { "cms-token": window.localStorage.getItem("cms-token") };
+  return config;
 });
 
-export default instance;
+// 添加响应拦截器
+instance.interceptors.response.use(
+  function (response) {
+    // 对响应数据做点什么
+    return response.data;
+  },
+  function (error) {
+    // 对响应错误做点什么
+    return Promise.reject(error);
+  }
+);
 
+export default instance;
