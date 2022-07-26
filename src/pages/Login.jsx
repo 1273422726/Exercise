@@ -31,7 +31,7 @@ export default function Login() {
 
         setTimeout(() => {
           //定时器
-          navigate("/list"); //登录成功跳转登录页面
+          navigate("/list"); //登录成功跳转用户列表页面
         }, 1500);
       } else {
         //错误信息反馈提示
