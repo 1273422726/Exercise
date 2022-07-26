@@ -20,7 +20,7 @@ export default function Login() {
     }).then((res) => {
       //接口状态返回
       if (res.errCode === 0) {
-        //注册成功提示
+        //登录成功提示
         message.success(res.message);
         //存储数据
         localStorage.setItem("avatar", res.data.avatar);
@@ -31,7 +31,7 @@ export default function Login() {
 
         setTimeout(() => {
           //定时器
-          navigate("/list"); //注册成功跳转登录页面
+          navigate("/list"); //登录成功跳转登录页面
         }, 1500);
       } else {
         //错误信息反馈提示
